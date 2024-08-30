@@ -1,0 +1,40 @@
+#navbar-example3 {
+    width: 250px; /* Adjust width as needed */
+    height: 100vh; /* Full height */
+    background-color: #fdfdfd; /* Background color */
+    border-right: 1px solid #ddd; /* Border color */
+}
+
+.sidebar-item {
+    list-style: none;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.icon-margin {
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+.icon-toggle {
+    float: right;
+}
+
+.submenu {
+    list-style-type: none;
+    padding-left: 1em;
+}
+
+.submenu .nav-link {
+    padding-left: 20px; /* Indentation for submenu items */
+}

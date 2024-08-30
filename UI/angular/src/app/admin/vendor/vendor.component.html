@@ -1,0 +1,55 @@
+<div class="conatiner">
+    <div class="container my-5">
+        <p-button label="Add +" (click)="confirm()"></p-button>
+        <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible"
+            [style]="{ width: '50rem' ,height:'30rem' }">
+            <div class="grid p-fluid">
+                <form  #Form="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row gap-5">
+                    <div class="col-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                            <input type="text" id="name" name ="vendor_name" pInputText placeholder="Vendor Name"  [(ngModel)]="model.name">
+                        </div>
+
+
+                    </div>
+                     <div class="col-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                            <input type="text" pInputText placeholder="Mobile_number" name ="number" id="number" [(ngModel)]="model.name">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row gap-5 mt-3">
+                    <div class="col-4">
+                        <p-dropdown [options]="cities" ngModel="selectedCityId" optionLabel="name" id ="selectedCityId" name ="selectedCityId" [(ngModel)]="model.name"></p-dropdown>
+
+                    </div>
+
+                    <div class="col-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                            <input type="text" pInputText placeholder="Mobile_number">
+                        </div>
+
+                    </div>
+
+                </div>
+            <div class="row gap-5 mt-3">
+
+           
+                    <div class="col-3">
+                        <p-button label="Add +"></p-button>
+                </div>
+       
+            </div>
+        </form>
+        </div>
+        </p-dialog>
+
+    </div>
+
+</div>
