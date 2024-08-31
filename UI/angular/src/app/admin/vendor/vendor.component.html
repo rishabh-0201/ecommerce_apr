@@ -1,55 +1,87 @@
-<div class="conatiner">
-    <div class="container my-5">
-        <p-button label="Add +" (click)="confirm()"></p-button>
-        <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible"
-            [style]="{ width: '50rem' ,height:'30rem' }">
-            <div class="grid p-fluid">
-                <form  #Form="ngForm" (ngSubmit)="onSubmit()">
-                <div class="row gap-5">
-                    <div class="col-4">
-                        <div class="p-inputgroup">
-                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                            <input type="text" id="name" name ="vendor_name" pInputText placeholder="Vendor Name"  [(ngModel)]="model.name">
-                        </div>
-
-
+<div class="container my-5">
+    <p-button label="Add +" (click)="confirm()"></p-button>
+                        <!-------------- popup --------------------->
+    <p-dialog header="Add Vendor" [modal]="true" [(visible)]="visible"
+              [style]="{ width: '25rem', height: '30rem'}">
+        <div class="grid p-fluid">
+            <form #vendorForm="ngForm" (ngSubmit)="onSubmit(vendorForm)" novalidate>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="name">Name</label><br>
+                        <input type="text" id="name"  #name="ngModel" name="name" ngModel 
+                               style="min-width: 350px; min-height: 40px;" 
+                               placeholder="Enter Name" required pattern="[a-zA-Z ]+" >
+                               <div *ngIf="name.invalid && name.touched" class="text-danger">
+                                <small>Name is required and must contain only letters.</small>
+                            </div>
                     </div>
-                     <div class="col-4">
-                        <div class="p-inputgroup">
-                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                            <input type="text" pInputText placeholder="Mobile_number" name ="number" id="number" [(ngModel)]="model.name">
-                        </div>
-
-                    </div>
-
                 </div>
-                <div class="row gap-5 mt-3">
-                    <div class="col-4">
-                        <p-dropdown [options]="cities" ngModel="selectedCityId" optionLabel="name" id ="selectedCityId" name ="selectedCityId" [(ngModel)]="model.name"></p-dropdown>
-
-                    </div>
-
-                    <div class="col-4">
-                        <div class="p-inputgroup">
-                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                            <input type="text" pInputText placeholder="Mobile_number">
+                    <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="phoneNumber">Phone Number</label><br>
+                        <input type="text" id="phoneNumber" #phoneNumber="ngModel" name="phoneNumber" ngModel 
+                               style="min-width: 350px; min-height: 40px;" 
+                               placeholder="+91" required pattern="[0-9]{10}">
+                        <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="text-danger">
+                                <small>Number must be 10 digits long and contain only numbers.</small>
                         </div>
-
                     </div>
-
+             
                 </div>
-            <div class="row gap-5 mt-3">
-
-           
-                    <div class="col-3">
-                        <p-button label="Add +"></p-button>
+                <div class="row mt-3 gap-3">
+                    <div class="col-4" style="width: 150px;">
+                        <label for="city">City</label><br>
+                        <p-dropdown [options]="cities" [(ngModel)]="selectedCityId" 
+                        optionLabel="name" name="selectedCityId" aria-placeholder="Select a city">
+                       </p-dropdown>
+                    </div>
+                    <div class="col-4" style="width: 150px;">
+                        <label for="company">Company</label><br>
+                        <p-dropdown [options]="companies" [(ngModel)]="selectedCompanyId" 
+                        optionLabel="name" name="selectedComapnyId" >
+                       </p-dropdown>
+                    </div>
                 </div>
-       
-            </div>
-        </form>
+                <div class="row mt-3" style="width: 150px;margin-left: 100px;">
+                        <p-button label="Save" type="submit" [disabled]="vendorForm.invalid"></p-button>
+                </div>
+            </form>
         </div>
-        </p-dialog>
-
-    </div>
-
+    </p-dialog>
+                               <!----------------- table -------------------------->
+        <div class="row">   
+        <p-table [value]="vendors" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" class="mt-5">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width:100px;background-color:#add8e6;">Name</th>
+                    <th style="min-width:100px;background-color: #add8e6;">Phone Number</th>
+                    <th style="min-width:100px;background-color: #add8e6;">City</th>
+                    <th style="min-width:100px;background-color: #add8e6;">Company</th>
+                    <th style="min-width:100px;background-color: #add8e6;">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-vendor>
+                <tr>
+                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.name}}</td>
+                    <td *ngIf="isEdit">  <input type="text" id="name"  #name="ngModel" name="name" [(ngModel)]="vendor.name" ></td>
+                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.number}}</td>
+                    <td *ngIf="isEdit">  <input type="text" id="phoneNumber"  #phoneNumber="ngModel" name="phoneNumber" [(ngModel)]="vendor.number" ></td>
+                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.city}}</td>
+                    <td *ngIf="isEdit">  <p-dropdown [options]="cities" [(ngModel)]="selectedCityId" 
+                        optionLabel="name" name="selectedCityId" aria-placeholder="Select a city">
+                       </p-dropdown></td>
+                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.company}}</td>
+                    <td *ngIf="isEdit">
+                    <p-dropdown [options]="companies" [(ngModel)]="selectedCompanyId" 
+                    optionLabel="name" name="selectedComapnyId" >
+                   </p-dropdown>
+                    </td>
+                    <td style="min-width:100px">
+                        <i class="pi pi-trash"style="font-size: 1.5rem"></i>
+                        <i class="pi pi-pencil"style="font-size: 1.5rem;margin-left:50px" (click)="updateVendor()"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div> 
 </div>

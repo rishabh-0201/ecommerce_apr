@@ -4,15 +4,7 @@
         <ng-container *ngFor="let menu of menuItemlist">
             <li class="sidebar-item" [ngClass]="menu.class" [title]="menu.title">
                 <a class="nav-link sidebar-link waves-effect waves-dark sidebar-link pointer"
-                   [routerLink]="menu.submenu"
-                   (click)="toggleSubMenu(menu)"
-                   [attr.aria-expanded]="menu.showSubMenu"
-                   [attr.aria-controls]="menu.submenu.length > 0 ? 'submenu-' + menu.id : null">
-                    <i [ngClass]="[menu.icon]" class="icon-margin"></i>
-                    {{menu.title}}
-                    <i *ngIf="menu.submenu.length > 0 && !menu.showSubMenu" class="pi pi-angle-right icon-toggle"></i>
-                    <i *ngIf="menu.submenu.length > 0 && menu.showSubMenu" class="pi pi-angle-up icon-toggle"></i>
-                </a>
+                   [routerLink]="menu.path"> {{menu.title}}</a>
                  
             </li>
         </ng-container>
