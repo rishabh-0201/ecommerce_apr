@@ -20,9 +20,8 @@ export class SidebarComponent {
     {
       id: 2,
       title: 'Vendor-List',
-      path: '/vendor',
-      icon: 'pi pi-home',
-      submenu: ['vendor'],
+      path: 'vendor',
+      submenu: [],
       showSubMenu: false
     }
     // {
