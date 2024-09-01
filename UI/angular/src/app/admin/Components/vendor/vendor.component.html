@@ -1,8 +1,9 @@
 <div class="container my-5">
+    <p-button label="Api" (click)=" getStates()"></p-button>
     <p-button label="Add +" (click)="confirm()"></p-button>
                         <!-------------- popup --------------------->
     <p-dialog header="Add Vendor" [modal]="true" [(visible)]="visible"
-              [style]="{ width: '25rem', height: '30rem'}">
+              [style]="{ width: '25rem', height: 'fit-content'}">
         <div class="grid p-fluid">
             <form #vendorForm="ngForm" (ngSubmit)="onSubmit(vendorForm)" novalidate>
                 <div class="row">
@@ -30,6 +31,12 @@
                 </div>
                 <div class="row mt-3 gap-3">
                     <div class="col-4" style="width: 150px;">
+                        <label for="state">State</label><br>
+                        <p-dropdown [options]="states" [(ngModel)]="selectedStateId" 
+                        optionLabel="stateName" name="selectedStateId" >
+                       </p-dropdown>
+                    </div>
+                    <div class="col-4" style="width: 150px;">
                         <label for="city">City</label><br>
                         <p-dropdown [options]="cities" [(ngModel)]="selectedCityId" 
                         optionLabel="name" name="selectedCityId" aria-placeholder="Select a city">
@@ -41,6 +48,7 @@
                         optionLabel="name" name="selectedComapnyId" >
                        </p-dropdown>
                     </div>
+                    
                 </div>
                 <div class="row mt-3" style="width: 150px;margin-left: 100px;">
                         <p-button label="Save" type="submit" [disabled]="vendorForm.invalid"></p-button>
