@@ -1,21 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
-
+import { VendorService } from '../../Service/vendor.service';
+import { State } from 'src/app/Model/Model';
 @Component({
   selector: 'app-vendor',
   templateUrl: './vendor.component.html',
   styleUrls: ['./vendor.component.css']
 })
-export class VendorComponent {
+export class VendorComponent implements OnInit{
   visible: boolean = false;
   isEdit:boolean=false;
+  states: State[] = [];
   cities: any[] = [];
   companies: any[] = [];
+  selectedStateId: number=0;
   selectedCityId: number=0;
   selectedCompanyId: number=0;
   vendors:any[]=[];
-  constructor(private confirmationService: ConfirmationService) {
+  constructor(private confirmationService: ConfirmationService , private vendorService:VendorService) {
+    // this.states= [
+    //   { name: 'MP', id: 1 },
+    //   { name: 'UP', id: 2 },
+    //   { name: 'AP', id: 3 },
+    //   { name: 'Gujarat', id: 4 },
+    //   { name: 'Rajasthan', id: 5 }
+    // ];
     this.cities = [
       { name: 'New York', id: 1 },
       { name: 'Rome', id: 2 },
@@ -37,6 +47,9 @@ export class VendorComponent {
         { id:4,name: 'Iccha', number:'2364764634',city:'bhopal',company:'iphone'},
     ];
   }
+  ngOnInit(): void {
+     this.getStates();
+  }
 
   confirm() {
     this.visible = !this.visible;
@@ -50,4 +63,13 @@ export class VendorComponent {
  updateVendor(){
     this.isEdit=!this.isEdit;
  }
+ getStates(){
+   this.vendorService.GetStates().subscribe({
+    next:(res)=>{
+      console.log(res);
+    this.states=res;
+   }
+   })
+ }
 }
+
