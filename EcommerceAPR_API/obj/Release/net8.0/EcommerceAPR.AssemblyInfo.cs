@@ -12,13 +12,9 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("EcommerceAPR")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-=======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04a3cc2e5c3daf5083b845abb074f6e499e0cfeb")]
->>>>>>> 762c62357eb4977d155f87b74be0c6272e2a3b1e
 [assembly: System.Reflection.AssemblyProductAttribute("EcommerceAPR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcommerceAPR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
