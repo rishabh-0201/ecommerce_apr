@@ -24,6 +24,14 @@ export class SidebarComponent {
       submenu: [],
       showSubMenu: false
     }
+    ,
+    {
+      id: 3,
+      title: 'Category-List',
+      path: 'vendor',
+      submenu: [],
+      showSubMenu: false
+    }
     // {
     //   id: 2,
     //   title: 'Settings',

@@ -13,7 +13,9 @@
     margin:0;
     padding: 0;
   }
-  
+  app-navbar{
+    background-color: #00246B;
+  }
   app-sidebar {
     width: 200px;
     position: fixed;

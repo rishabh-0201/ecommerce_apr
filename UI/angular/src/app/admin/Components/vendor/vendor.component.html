@@ -1,95 +1,150 @@
-<div class="container my-5">
-    <p-button label="Api" (click)=" getStates()"></p-button>
-    <p-button label="Add +" (click)="confirm()"></p-button>
-                        <!-------------- popup --------------------->
+<div class="container my-5 ">
+     <h1 class="text-center ">Vendor List</h1>
+     <div  class="d-flex justify-content-end align-items-end">
+        <p-button label="Add +" (click)="confirm()" [style]="{'font-size':'20px','background-color':' #0C2D48','color':' #d9ebf0'}" >
+
+        </p-button></div>
+    <!-------------- popup --------------------->
     <p-dialog header="Add Vendor" [modal]="true" [(visible)]="visible"
-              [style]="{ width: '25rem', height: 'fit-content'}">
-        <div class="grid p-fluid">
-            <form #vendorForm="ngForm" (ngSubmit)="onSubmit(vendorForm)" novalidate>
+        [style]="{ width: '50rem', height: 'fit-content'}" >
+        <div class="grid p-fluid ms-4">
+            <form #vendorForm="ngForm" (ngSubmit)="addVendor(vendorForm)" novalidate>
                 <div class="row">
                     <div class="col-6">
                         <label for="name">Name</label><br>
-                        <input type="text" id="name"  #name="ngModel" name="name" ngModel 
-                               style="min-width: 350px; min-height: 40px;" 
-                               placeholder="Enter Name" required pattern="[a-zA-Z ]+" >
-                               <div *ngIf="name.invalid && name.touched" class="text-danger">
-                                <small>Name is required and must contain only letters.</small>
-                            </div>
+                        <input type="text" id="name" #name="ngModel" name="name" ngModel  
+                            style="min-width: 350px; min-height: 40px;" placeholder="Enter Name" required
+                            pattern="[a-zA-Z ]+">
+                        <div *ngIf="name.invalid && name.touched" class="text-danger">
+                            <small>Name is required and must contain only letters.</small>
+                        </div>
                     </div>
-                </div>
-                    <div class="row mt-3">
+
+
                     <div class="col-6">
                         <label for="phoneNumber">Phone Number</label><br>
                         <input type="text" id="phoneNumber" #phoneNumber="ngModel" name="phoneNumber" ngModel 
-                               style="min-width: 350px; min-height: 40px;" 
-                               placeholder="+91" required pattern="[0-9]{10}">
+                            style="min-width: 350px; min-height: 40px;" placeholder="+91" required pattern="[0-9]{10}">
                         <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="text-danger">
-                                <small>Number must be 10 digits long and contain only numbers.</small>
+                            <small>Number must be 10 digits long and contain only numbers.</small>
                         </div>
                     </div>
-             
+
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email" #email="ngModel" name="email" ngModel 
+                            style="min-width: 350px; min-height: 40px;" placeholder="Enter Email" required
+                            pattern="[a-zA-Z0-9.*%±]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}">
+                        <div *ngIf="email.invalid && email.touched" class="text-danger">
+                            <small>Email is required and must be correct</small>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6">
+                        <label for="address">Address</label><br>
+                        <input type="text" id="address" #address="ngModel" name="address" ngModel 
+                            style="min-width: 350px; min-height: 40px;" placeholder="address">
+                        <div *ngIf="address.invalid && address.touched" class="text-danger">
+                            <small>address required.</small>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row mt-3 gap-3">
-                    <div class="col-4" style="width: 150px;">
+                    <div class="col-3" style="width: 150px;">
                         <label for="state">State</label><br>
-                        <p-dropdown [options]="states" [(ngModel)]="selectedStateId" 
-                        optionLabel="stateName" name="selectedStateId" >
-                       </p-dropdown>
+                        <p-dropdown [options]="states" [(ngModel)]="selectedState" optionLabel="stateName" 
+                            name="selectedStateId" placeholder="{{ 'state'}}" (onChange)="getCitiesByState()">
+                        </p-dropdown>
                     </div>
-                    <div class="col-4" style="width: 150px;">
+                    <div class="col-3" style="width: 150px;">
                         <label for="city">City</label><br>
-                        <p-dropdown [options]="cities" [(ngModel)]="selectedCityId" 
-                        optionLabel="name" name="selectedCityId" aria-placeholder="Select a city">
-                       </p-dropdown>
+                        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="cityName"  
+                            name="selectedCity" placeholder="{{'city'}}" aria-placeholder="Select a city">
+                        </p-dropdown>
                     </div>
-                    <div class="col-4" style="width: 150px;">
+                    <div class="col-3" style="width: 150px;">
                         <label for="company">Company</label><br>
-                        <p-dropdown [options]="companies" [(ngModel)]="selectedCompanyId" 
-                        optionLabel="name" name="selectedComapnyId" >
-                       </p-dropdown>
+                        <p-dropdown [options]="companies" [(ngModel)]="selectedCompany" optionLabel="companyName"  
+                            name="selectedComapny" placeholder="{{ 'company'}}">
+                        </p-dropdown>
                     </div>
-                    
+                    <div class="col-3" style="width: 150px;">
+                        <label for="person">Contact person</label><br>
+                        <input type="text" id="person" #person="ngModel" name="person" ngModel 
+                            style="min-width: 150px; min-height: 40px;" placeholder="person"  >
+                        <div *ngIf="person.invalid && person.touched" class="text-danger">
+                            <small>person required.</small>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row mt-3" style="width: 150px;margin-left: 100px;">
-                        <p-button label="Save" type="submit" [disabled]="vendorForm.invalid"></p-button>
+                    <p-button label="Save" type="submit" [disabled]="vendorForm.invalid" ></p-button>
                 </div>
             </form>
         </div>
     </p-dialog>
-                               <!----------------- table -------------------------->
-        <div class="row">   
-        <p-table [value]="vendors" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll" class="mt-5">
+    <!----------------- table -------------------------->
+    <div class="mt-5" style="width: 100rem;">
+        <p-table [value]="vendors" [paginator]="true" [rows]="10" 
+             class="mt-5 w-100">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="min-width:100px;background-color:#add8e6;">Name</th>
-                    <th style="min-width:100px;background-color: #add8e6;">Phone Number</th>
-                    <th style="min-width:100px;background-color: #add8e6;">City</th>
-                    <th style="min-width:100px;background-color: #add8e6;">Company</th>
-                    <th style="min-width:100px;background-color: #add8e6;">Actions</th>
+                    <!-- style="min-width:150px;background-color:#add8e6;" -->
+                    <th style="background-color:  #0C2D48;color: white; font-size: 20px;">Name</th>
+                    <th style="background-color:   #0C2D48; color: white; font-size: 20px;">Phone Number</th>
+                    <th style="background-color:   #0C2D48; color: white; font-size: 20px;">Email</th>
+                    <th style="background-color:   #0C2D48; color: white; font-size: 20px;" >State</th>
+                    <th style="background-color:   #0C2D48; color: white; font-size: 20px;">City</th>
+                    <th style="background-color:   #0C2D48; color: white; font-size: 20px;">Company</th>
+                    <th style="background-color:   #0C2D48; color: white; font-size: 20px;">Contact Person</th>
+                    <th style="background-color:   #0C2D48; color: white; font-size: 20px;">Actions</th>
                 </tr>
+               
             </ng-template>
             <ng-template pTemplate="body" let-vendor>
-                <tr>
-                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.name}}</td>
-                    <td *ngIf="isEdit">  <input type="text" id="name"  #name="ngModel" name="name" [(ngModel)]="vendor.name" ></td>
-                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.number}}</td>
-                    <td *ngIf="isEdit">  <input type="text" id="phoneNumber"  #phoneNumber="ngModel" name="phoneNumber" [(ngModel)]="vendor.number" ></td>
-                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.city}}</td>
-                    <td *ngIf="isEdit">  <p-dropdown [options]="cities" [(ngModel)]="selectedCityId" 
-                        optionLabel="name" name="selectedCityId" aria-placeholder="Select a city">
-                       </p-dropdown></td>
-                    <td style="min-width:100px" *ngIf="!isEdit">{{vendor.company}}</td>
-                    <td *ngIf="isEdit">
-                    <p-dropdown [options]="companies" [(ngModel)]="selectedCompanyId" 
-                    optionLabel="name" name="selectedComapnyId" >
-                   </p-dropdown>
+                <tr  [ngClass]="{ 
+                    'even' : vendor.vendorId%2 ==0,  
+                    'odd':  vendor.vendorId%2 !=0}">
+                    <td  *ngIf="!vendor.isEdit">{{vendor.vendorName}}</td>
+                    <td *ngIf="vendor.isEdit"> <input type="text" id="name" #name="ngModel" name="name"
+                            [(ngModel)]="vendor.vendorName"></td>
+                    <td *ngIf="!vendor.isEdit">{{vendor.phoneNumber}}</td>
+                    <td *ngIf="vendor.isEdit"> <input type="text" id="phoneNumber" #phoneNumber="ngModel" name="phoneNumber"
+                            [(ngModel)]="vendor.phoneNumber"></td>
+                    <td *ngIf="!vendor.isEdit">{{vendor.email}}</td>
+                    <td *ngIf="vendor.isEdit"> <input type="text" id="email" #email="ngModel" name="email"
+                            [(ngModel)]="vendor.email"></td>
+                  
+                     <td  *ngIf="!vendor.isEdit">{{vendor.stateName}}</td>
+                     <td *ngIf="vendor.isEdit"> <p-dropdown [options]="states" [(ngModel)]="selectedState" optionLabel="stateName"
+                                    name="selectedState">
+                                </p-dropdown></td>
+                    <td *ngIf="!vendor.isEdit">{{vendor.cityName}}</td>
+                    <td *ngIf="vendor.isEdit"> <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="cityName"
+                            name="selectedCity" aria-placeholder="Select a city">
+                        </p-dropdown></td>
+                    <td  *ngIf="!vendor.isEdit">{{vendor.companyName}}</td>
+                    <td *ngIf="vendor.isEdit">
+                        <p-dropdown [options]="companies" [(ngModel)]="selectedCompany" optionLabel="companyName"
+                            name="selectedComapny">
+                        </p-dropdown>
                     </td>
-                    <td style="min-width:100px">
-                        <i class="pi pi-trash"style="font-size: 1.5rem"></i>
-                        <i class="pi pi-pencil"style="font-size: 1.5rem;margin-left:50px" (click)="updateVendor()"></i>
+                    <td  *ngIf="!vendor.isEdit">{{vendor.contactPerson}}</td>
+                    <td *ngIf="vendor.isEdit"> <input type="text" id="person" #person="ngModel" name="person"
+                            [(ngModel)]="vendor.contactPerson"></td>
+                    <td >
+                        <i class="pi pi-trash" style="font-size: 1.5rem" (click)="deleteVendor(vendor.vendorId)"></i>
+                        <i class="pi pi-pencil" style="font-size: 1.5rem;margin-left:50px" (click)="updateVendor(vendor.vendorId,vendor)"></i>
                     </td>
+                     
                 </tr>
+            
             </ng-template>
         </p-table>
-    </div> 
+    </div>
 </div>

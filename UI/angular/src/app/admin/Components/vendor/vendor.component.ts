@@ -2,74 +2,136 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { VendorService } from '../../Service/vendor.service';
-import { State } from 'src/app/Model/Model';
+import { State, Vendor } from 'src/app/Model/Model';
 @Component({
   selector: 'app-vendor',
   templateUrl: './vendor.component.html',
-  styleUrls: ['./vendor.component.css']
+  styles: [ 
+    `tr.even{ 
+        background-color:  #d9ebf0; 
+        color: #0C2D48; 
+    } 
+    tr.odd{ 
+        background-color: white; 
+        color:#0C2D48; 
+    } 
+    ` 
+] 
 })
-export class VendorComponent implements OnInit{
+export class VendorComponent implements OnInit {
   visible: boolean = false;
-  isEdit:boolean=false;
   states: State[] = [];
   cities: any[] = [];
   companies: any[] = [];
-  selectedStateId: number=0;
-  selectedCityId: number=0;
-  selectedCompanyId: number=0;
-  vendors:any[]=[];
-  constructor(private confirmationService: ConfirmationService , private vendorService:VendorService) {
-    // this.states= [
-    //   { name: 'MP', id: 1 },
-    //   { name: 'UP', id: 2 },
-    //   { name: 'AP', id: 3 },
-    //   { name: 'Gujarat', id: 4 },
-    //   { name: 'Rajasthan', id: 5 }
-    // ];
-    this.cities = [
-      { name: 'New York', id: 1 },
-      { name: 'Rome', id: 2 },
-      { name: 'London', id: 3 },
-      { name: 'Istanbul', id: 4 },
-      { name: 'Paris', id: 5 }
-    ];
-    this.companies= [
-      { name: 'Vivo', id: 1 },
-      { name: 'Oppo', id: 2 },
-      { name: 'Samsung', id: 3 },
-      { name: 'Mi', id: 4 },
-      { name: 'IPhone', id: 5 }
-    ];
-      this.vendors= [
-        {id:1, name: 'Anupam ', number:'2364764634',city:'indore',company:'vivo'},
-        { id:2,name: 'Aastha ', number:'2364764634',city:'dewas',company:'oppo'},
-        { id:3,name: 'Mansi', number:'2364764634',city:'ujjain',company:'samsung'},
-        { id:4,name: 'Iccha', number:'2364764634',city:'bhopal',company:'iphone'},
-    ];
+
+  selectedState: any = {
+    stateId: '',
+    stateName: ''
+  };
+  selectedStateId = this.selectedState.stateId;
+  selectedCity: any = {
+    cityId: '',
+    cityName: '',
+    stateId: ''
+  };
+  selectedCompany: any = {
+    companyId: '',
+    companyName: ''
+  };
+  vendor: any = {};
+
+  vendors: any[] = [];
+  selectedCompanyId: any;
+  constructor(private confirmationService: ConfirmationService, private vendorService: VendorService) {
+    this.cities = [];
+    this.companies = [];
+    this.vendors = [];
   }
   ngOnInit(): void {
-     this.getStates();
+    this.getStates();
+    this.getCompany();
+    this.getVendors();
   }
 
   confirm() {
     this.visible = !this.visible;
   }
 
-  onSubmit(form: NgForm) {
-    console.log(form.value);
-    this.visible=!this.visible;
-    form.resetForm();
- }
- updateVendor(){
-    this.isEdit=!this.isEdit;
- }
- getStates(){
-   this.vendorService.GetStates().subscribe({
-    next:(res)=>{
+
+   
+  
+  getStates() {
+    this.vendorService.GetStates().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.states = res;
+      }
+    })
+  }
+  getCitiesByState() {
+    this.vendorService.GetCityByStateId(this.selectedState.stateId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.cities = res
+      }
+    });
+  }
+  getCompany() {
+    this.vendorService.GetCompanies().subscribe({
+      next: (res) => {
+        this.companies = res;
+      }
+    })
+  }
+  getVendors() {
+    this.vendorService.GetVendors().subscribe({
+      next: (res) => {
+        this.vendors = res;
+        this.vendors.forEach(x => x.isEdit = false)
+        console.log(this.vendors);
+      }
+    })
+  }
+  addVendor(vendorForm: NgForm) {
+    this.selectedStateId = this.selectedState.stateId
+    this.selectedCompanyId = this.selectedCompany.companyId
+    this.vendor = {
+      vendorName: vendorForm.value.name,
+      contactPerson: vendorForm.value.person,
+      phoneNumber: vendorForm.value.phoneNumber,
+      email: vendorForm.value.email,
+      address: vendorForm.value.address,
+      cityId: vendorForm.value.selectedCity.cityId,
+      stateId: this.selectedStateId,
+      companyId: this.selectedCompanyId
+    };
+    this.vendorService.PostVendor(this.vendor).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.getVendors();
+      }
+    })
+    vendorForm.resetForm();
+    this.visible = !this.visible;
+  }
+  updateVendor(id:number ,vendor:any){
+    vendor.isEdit = !vendor.isEdit;
+    this.vendorService.PutVendor(id,vendor).subscribe({
+     next:(res)=>{
       console.log(res);
-    this.states=res;
-   }
-   })
- }
+      // this.getVendors();
+     }
+    })
+  }
+  // updateVendor(vendor: any) {
+  //   vendor.isEdit = !vendor.isEdit;
+  // }
+  deleteVendor(id: number) {
+    this.vendorService.DeleteVendor(id).subscribe({
+      next: (res) => {
+        this.getVendors();
+      }
+    })
+  }
 }
 

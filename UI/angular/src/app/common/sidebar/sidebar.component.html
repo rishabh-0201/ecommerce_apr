@@ -3,8 +3,9 @@
     <nav class="nav nav-pills flex-column">
         <ng-container *ngFor="let menu of menuItemlist">
             <li class="sidebar-item" [ngClass]="menu.class" [title]="menu.title">
-                <a class="nav-link sidebar-link waves-effect waves-dark sidebar-link pointer"
-                   [routerLink]="menu.path"> {{menu.title}}</a>
+                
+                <a class="nav-link sidebar-link waves-effect waves-dark sidebar-link pointer" 
+                   [routerLink]="menu.path">  <i class="pi pi-list" style="margin-right: 5px;"></i> {{menu.title}}</a>
                  
             </li>
         </ng-container>
