@@ -1,0 +1,58 @@
+<div class="container my-5 ">
+    <h1 class="text-center ">Product List</h1>
+    <div  class="d-flex justify-content-end align-items-end">
+       <p-button label="Add Product +" (click)="confirm()" [style]="{'font-size':'20px','background-color':' #0C2D48','color':' #d9ebf0'}" >
+
+       </p-button></div>
+   <!-------------- popup --------------------->
+   <p-dialog header="Add Vendor" [modal]="true" [(visible)]="visible"
+       [style]="{ width: '50rem', height: '30rem'}" >
+       <div class="grid p-fluid ms-4">
+           <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)" novalidate>
+               <div class="row">
+                   <div class="col-6">
+                       <label for="ProductName">ProductName</label><br>
+                       <input type="text" id="ProductName" #ProductName="ngModel" name="ProductName" ngModel  
+                           style="min-width: 350px; min-height: 40px;" placeholder="Enter Name" required
+                           pattern="[a-zA-Z ]+">
+                       <div *ngIf="ProductName.invalid && ProductName.touched" class="text-danger">
+                           <small>Name is required and must contain only letters.</small>
+                       </div>
+                   </div>
+
+
+                   <div class="col-6">
+                       <label for="ProductDescription">Product Description</label><br>
+                       <input type="text" id="ProductDescription" #ProductDescription="ngModel" name="ProductDescription" ngModel 
+                           style="min-width: 350px; min-height: 40px;" placeholder="ProductDescription" >
+                       <div *ngIf="ProductDescription.invalid && ProductDescription.touched" class="text-danger">
+                           <small>Number must be 10 digits long and contain only numbers.</small>
+                       </div>
+                   </div>
+
+               </div>
+               <div class="row mt-3">
+                   <div class="col-6">
+                       <label for="UnitPrice">UnitPrice</label><br>
+                       <input type="text" id="UnitPrice" #UnitPrice="ngModel" name="UnitPrice" ngModel 
+                           style="min-width: 350px; min-height: 40px;" placeholder="Enter Unit price" required>
+                       <div *ngIf="UnitPrice.invalid && UnitPrice.touched" class="text-danger">
+                           <small>Email is required and must be correct</small>
+                       </div>
+                   </div>
+
+
+                   <div class="col-6">
+                    <label for="Categories">Categories</label><br>
+                    <p-dropdown [options]="Categories"  optionLabel="categoryName" 
+                        name="Category" [(ngModel)]="category" placeholder="{{ 'Category'}}">
+                    </p-dropdown>
+                   </div>
+                   
+               </div>
+               <div class="row mt-3" style="width: 150px;margin-left: 100px;margin-top: 200px;">
+                   <p-button label="Save" type="submit" [disabled]="productForm.invalid" ></p-button>
+               </div>
+           </form>
+       </div>
+   </p-dialog> x    

@@ -16,13 +16,15 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductComponent } from './admin/Components/product/product.component';
 @NgModule({
   declarations: [
     AppComponent,
     VendorComponent,
     SidebarComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

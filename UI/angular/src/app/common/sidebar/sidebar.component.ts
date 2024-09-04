@@ -27,8 +27,8 @@ export class SidebarComponent {
     ,
     {
       id: 3,
-      title: 'Category-List',
-      path: 'vendor',
+      title: 'Product-List',
+      path: 'Product',
       submenu: [],
       showSubMenu: false
     }

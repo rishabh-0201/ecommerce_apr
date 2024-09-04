@@ -6,7 +6,7 @@ import { State, Vendor } from 'src/app/Model/Model';
 @Component({
   selector: 'app-vendor',
   templateUrl: './vendor.component.html',
-  styles: [ 
+  styles: [
     `tr.even{ 
         background-color:  #d9ebf0; 
         color: #0C2D48; 
@@ -15,20 +15,20 @@ import { State, Vendor } from 'src/app/Model/Model';
         background-color: white; 
         color:#0C2D48; 
     } 
-    ` 
-] 
+    `
+  ]
 })
 export class VendorComponent implements OnInit {
   visible: boolean = false;
   states: State[] = [];
   cities: any[] = [];
   companies: any[] = [];
-
+  vendor: any = {};
+  vendors: any[] = [];
   selectedState: any = {
     stateId: '',
     stateName: ''
   };
-  selectedStateId = this.selectedState.stateId;
   selectedCity: any = {
     cityId: '',
     cityName: '',
@@ -38,10 +38,8 @@ export class VendorComponent implements OnInit {
     companyId: '',
     companyName: ''
   };
-  vendor: any = {};
-
-  vendors: any[] = [];
   selectedCompanyId: any;
+  selectedStateId = this.selectedState.stateId;
   constructor(private confirmationService: ConfirmationService, private vendorService: VendorService) {
     this.cities = [];
     this.companies = [];
@@ -52,14 +50,9 @@ export class VendorComponent implements OnInit {
     this.getCompany();
     this.getVendors();
   }
-
   confirm() {
     this.visible = !this.visible;
   }
-
-
-   
-  
   getStates() {
     this.vendorService.GetStates().subscribe({
       next: (res) => {
@@ -114,13 +107,13 @@ export class VendorComponent implements OnInit {
     vendorForm.resetForm();
     this.visible = !this.visible;
   }
-  updateVendor(id:number ,vendor:any){
+  updateVendor(id: number, vendor: any) {
     vendor.isEdit = !vendor.isEdit;
-    this.vendorService.PutVendor(id,vendor).subscribe({
-     next:(res)=>{
-      console.log(res);
-      // this.getVendors();
-     }
+    this.vendorService.PutVendor(id, vendor).subscribe({
+      next: (res) => {
+        console.log(res);
+        // this.getVendors();
+      }
     })
   }
   // updateVendor(vendor: any) {

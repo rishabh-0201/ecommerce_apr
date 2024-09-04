@@ -19,3 +19,20 @@ export interface Vendor{
     stateId: number,
     companyId: number
 }
+
+export interface Product{
+
+    productName: string,
+    productDescription: string,
+    categoryId: number,
+    attributeId: number,
+    imageUrl: string
+    sellingPrice: Float32Array,
+    UnitPrice: Float32Array 
+}
+
+export interface Category{
+
+    categoryId: number,
+    categoryName: string
+}
