@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../Service/product.service';
 import { FormGroup, NgForm } from '@angular/forms';
 import { NgFor } from '@angular/common';
-import { Product } from 'src/app/Model/Model';
+import { Color, Feature, Processor, Product, RAM, ROM } from 'src/app/Model/Model';
 
 @Component({
   selector: 'app-product',
@@ -11,16 +11,30 @@ import { Product } from 'src/app/Model/Model';
 })
 export class ProductComponent implements OnInit {
   visible: boolean = false;
+  selectedColor: any;
+  selectedRam: any;
+  selectedRom: any;
+  selectedProcessor: any;
+  product!: Product;
+  selectedCategoryId = 0;
   products: any[] = [];
   Categories: any[] = [];
-  category: any = {
+  Colors: Color[] = [];
+  Rams: RAM[] = [];
+  Roms: ROM[] = [];
+  Processors: Processor[] = [];
+  selectedCategory: any = {
     categoryId: 0,
     categoryName: ''
   }
-  categoryId: number = 0;
-  product: any = {};
+  featureDTO: any = {}
   ngOnInit(): void {
     this.CategoryList();
+    this.ColorList();
+    this.RamList();
+    this.RomList();
+    this.ProcessorList();
+
   }
   constructor(private productService: ProductService) { }
 
@@ -35,23 +49,68 @@ export class ProductComponent implements OnInit {
       }
     });
   }
+  ColorList() {
+    this.productService.GetColor().subscribe({
+      next: (res) => {
+        this.Colors = res;
+        // console.log(res);
+      }
+    })
+  }
+  RamList() {
+    this.productService.GetRam().subscribe({
+      next: (res) => {
+        this.Rams = res;
+        // console.log(res);
+      }
+    })
+  }
+  RomList() {
+    this.productService.GetRom().subscribe({
+      next: (res) => {
+        this.Roms = res;
+        // console.log(res);
+      }
+    })
+  }
+  ProcessorList() {
+    this.productService.GetProcessor().subscribe({
+      next: (res) => {
+        this.Processors = res;
+        // console.log(res);
+      }
+    })
+  }
   addProduct(productForm: NgForm) {
-    this.categoryId = this.category.categoryId;
+    this.selectedCategory = this.selectedCategory.categoryId;
+
+    console.log(this.selectedCategory)
+    this.featureDTO.colorId = this.selectedColor.colorId;
+    this.featureDTO.romId = this.selectedRom.romId;
+    this.featureDTO.ramId = this.selectedRam.ramId;
+    this.featureDTO.processorId = this.selectedProcessor.processorId
+    console.log(this.featureDTO);
     this.product = {
       productName: productForm.value.productName,
       productDescription: productForm.value.productDescription,
       unitPrice: productForm.value.unitPrice,
-      categoryId: this.categoryId,
+      imageUrl: 'ghj',
+      sellingPrice: 0,
+      categoryId: this.selectedCategory,
+      ramId: this.featureDTO.ramId,
+      romId: this.featureDTO.romId,
+      processorId: this.featureDTO.processorId,
+      colorId: this.featureDTO.colorId
     }
-    this.productService.addProduct(productForm).subscribe({
+    console.log(this.product);
+    this.productService.addProduct(this.product).subscribe({
       next: (res) => {
         console.log(res);
       }
     });
-    // console.log(productForm);
     productForm.resetForm();
     this.visible = !this.visible;
   }
 
-  
+
 }
