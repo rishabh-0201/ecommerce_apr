@@ -11,12 +11,21 @@ export class ProductService {
   constructor(private http:HttpClient) { 
   
   }
-
-   
-
   GetCategories():Observable<any[]>{
 
     return this.http.get<any[]>(this.url+"/api/Category")
+  }
+  GetColor():Observable<any[]>{
+    return this.http.get<any[]>(this.url+"/api/Color")
+  }
+  GetRom():Observable<any[]>{
+    return this.http.get<any[]>(this.url+"/api/Rom")
+  }
+  GetRam():Observable<any[]>{
+    return this.http.get<any[]>(this.url+"/api/Ram")
+  }
+  GetProcessor():Observable<any[]>{
+    return this.http.get<any[]>(this.url+"/api/Processor")
   }
   addProduct(product:any):Observable<any>{
     return this.http.post<any>(this.url+"/api/addproductr",product)

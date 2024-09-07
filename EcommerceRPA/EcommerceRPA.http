@@ -1,0 +1,6 @@
+@EcommerceRPA_HostAddress = http://localhost:5159
+
+GET {{EcommerceRPA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

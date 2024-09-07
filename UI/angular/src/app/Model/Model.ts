@@ -36,3 +36,24 @@ export interface Category{
     categoryId: number,
     categoryName: string
 }
+export interface Color{
+    colorId:number,
+    colorName:string
+}
+export interface RAM{
+    ramId:number,
+    ramValue:string
+}
+export interface ROM{
+    romId:number,
+    romValue:string
+}
+export interface Processor{
+    processorId:number,
+    processorValue:string
+}
+// export interface Attribute{
+//     productId:number,
+//     ramId:number,
+// }
+

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../Service/product.service';
 import { FormGroup, NgForm } from '@angular/forms';
 import { NgFor } from '@angular/common';
-import { Product } from 'src/app/Model/Model';
+import { Color, Processor, Product, RAM, ROM } from 'src/app/Model/Model';
 
 @Component({
   selector: 'app-product',
@@ -13,6 +13,10 @@ export class ProductComponent implements OnInit {
   visible: boolean = false;
   products: any[] = [];
   Categories: any[] = [];
+  Colors: Color[] = [];
+  Rams: RAM[] = [];
+  Rom: ROM[] = [];
+  Processors: Processor[] = [];
   category: any = {
     categoryId: 0,
     categoryName: ''
@@ -35,6 +39,34 @@ export class ProductComponent implements OnInit {
       }
     });
   }
+  ColorList() {
+         this.productService.GetColor().subscribe({
+          next:(res)=>{
+            console.log(res);
+          }
+         })
+  }
+  RamList(){
+    this.productService.GetRam().subscribe({
+      next:(res)=>{
+        console.log(res);
+      }
+     })
+  }
+  RomList(){
+    this.productService.GetRom().subscribe({
+      next:(res)=>{
+        console.log(res);
+      }
+     })
+  }
+  ProcessorList(){
+    this.productService.GetProcessor().subscribe({
+      next:(res)=>{
+        console.log(res);
+      }
+     })
+  }
   addProduct(productForm: NgForm) {
     this.categoryId = this.category.categoryId;
     this.product = {
@@ -53,5 +85,5 @@ export class ProductComponent implements OnInit {
     this.visible = !this.visible;
   }
 
-  
+
 }
