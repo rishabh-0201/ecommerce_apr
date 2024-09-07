@@ -45,7 +45,7 @@
                    <div class="col-6">
                     <label for="selectedCategory">Categories</label><br>
                     <p-dropdown [options]="Categories"  optionLabel="categoryName" 
-                        name="selectedCategory" [(ngModel)]="selectedCategory" placeholder="{{'Category'}}">
+                        name="selectedCategory" [(ngModel)]="selectedCategoryId" placeholder="{{'Category'}}">
                     </p-dropdown>
                    </div>
                    
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-3">
                     <label for="Roms">ROM</label><br>
-                    <p-dropdown [options]="Roms"  optionLabel="romValue" 
+                    <p-dropdown [options]="Rom"  optionLabel="romValue" 
                         name="selectedRom" [(ngModel)]="selectedRom" placeholder="{{ 'ROM'}}">
                     </p-dropdown>
                 </div>
