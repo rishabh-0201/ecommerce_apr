@@ -74,7 +74,40 @@ namespace EcommerceRPA.Controllers
         }
 
 
+        [HttpGet("state/{stateId}")]
+        public async Task<ActionResult<CityDTO>> GetCityByStateId(int stateId)
+        {
+            try
+            {
+                var city = await _context.Cities
+                    .Where(c => c.StateId == stateId)
+                    .Select(c => new CityDTO
+                    {
+                        CityId = c.CityId,
+                        CityName = c.CityName,
+                        StateId = c.StateId
+                    })
+                    .ToListAsync();
+
+                if (city == null)
+                {
+                    return NotFound($"City with ID {stateId} not found.");
+                }
+
+                return Ok(city);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError(ex, $"An error occurred while retrieving city with stateId {stateId}.");
+                return StatusCode(500, "Internal server error. Please try again later.");
+            }
+        }
 
     }
 
     }
+<<<<<<< HEAD
+=======
+
+}
+>>>>>>> 55f65d89ae4640258abf662e1d4e805f2c12e0b9

@@ -4,6 +4,7 @@ using EcommerceRPA.DataConnection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceRPA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240906014343_migration1")]
+    partial class migration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -366,22 +369,13 @@ namespace EcommerceRPA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-<<<<<<< HEAD
-                    b.HasOne("EcommerceAPR.model.Feature", "Feature")
-=======
                     b.HasOne("EcommerceAPR.model.Feature", null)
->>>>>>> 55f65d89ae4640258abf662e1d4e805f2c12e0b9
                         .WithMany("Products")
                         .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
-<<<<<<< HEAD
-
-                    b.Navigation("Feature");
-=======
->>>>>>> 55f65d89ae4640258abf662e1d4e805f2c12e0b9
                 });
 
             modelBuilder.Entity("EcommerceRPA.Models.Vendor", b =>

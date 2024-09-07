@@ -23,6 +23,7 @@ namespace EcommerceRPA.Models
         [ForeignKey("FeatureId")]
         public int FeatureId { get; set; }
 
+
         public Feature Feature { get; set; }
 
         public string ImageUrl { get; set; }

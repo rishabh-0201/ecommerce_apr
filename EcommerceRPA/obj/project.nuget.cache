@@ -1,8 +1,10 @@
 {
   "version": 2,
+
   "dgSpecHash": "MnGtP+5FEaQ=",
   "success": true,
   "projectFilePath": "C:\\ecommerce_apr\\EcommerceRPA\\EcommerceRPA.csproj",
+
   "expectedPackageFiles": [
     "C:\\Users\\SK\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\SK\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

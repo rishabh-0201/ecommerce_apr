@@ -22,13 +22,22 @@ export interface Vendor{
 
 export interface Product{
 
-    productName: string,
-    productDescription: string,
-    categoryId: number,
-    attributeId: number,
-    imageUrl: string
-    sellingPrice: Float32Array,
-    UnitPrice: Float32Array 
+    productName: string;
+    productDescription: string;
+    categoryId: number;
+    ramId:number;
+    romId:number;
+    processorId:number;
+    colorId:number;
+    unitPrice: Float32Array 
+    sellingPrice:number
+    imageUrl:string
+}
+export interface Feature{
+    RamId:number,
+    RomId:number,
+    ColorId:number,
+    processorId:number
 }
 
 export interface Category{

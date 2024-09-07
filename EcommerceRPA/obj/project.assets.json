@@ -4528,11 +4528,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\ecommerce_apr\\EcommerceRPA\\EcommerceRPA.csproj",
       "projectName": "EcommerceRPA",
       "projectPath": "C:\\ecommerce_apr\\EcommerceRPA\\EcommerceRPA.csproj",
       "packagesPath": "C:\\Users\\SK\\.nuget\\packages\\",
       "outputPath": "C:\\ecommerce_apr\\EcommerceRPA\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\SK\\Desktop\\project\\ecommerce_apr\\EcommerceRPA\\EcommerceRPA.csproj",
+      "projectName": "EcommerceRPA",
+      "projectPath": "C:\\Users\\SK\\Desktop\\project\\ecommerce_apr\\EcommerceRPA\\EcommerceRPA.csproj",
+      "packagesPath": "C:\\Users\\SK\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\SK\\Desktop\\project\\ecommerce_apr\\EcommerceRPA\\obj\\",
+>>>>>>> 55f65d89ae4640258abf662e1d4e805f2c12e0b9
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -16,6 +16,7 @@ export class ProductService {
     return this.http.get<any[]>(this.url+"/api/Category")
   }
   GetColor():Observable<any[]>{
+
     return this.http.get<any[]>(this.url+"/api/Color")
   }
   GetRom():Observable<any[]>{
@@ -26,9 +27,11 @@ export class ProductService {
   }
   GetProcessor():Observable<any[]>{
     return this.http.get<any[]>(this.url+"/api/Processor")
+
   }
   addProduct(product:any):Observable<any>{
-    return this.http.post<any>(this.url+"/api/addproductr",product)
+    return this.http.post(this.url+"/api/product",product,{responseType:'text'})
+     
   }
 }
 

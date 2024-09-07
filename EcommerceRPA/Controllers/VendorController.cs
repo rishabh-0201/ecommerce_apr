@@ -37,9 +37,11 @@ namespace EcommerceRPA.Controllers
                     PhoneNumber = v.PhoneNumber,
                     Email = v.Email,
                     Address = v.Address,
+
                     CityId = v.CityId,                   
                     StateName = v.City.State.StateName,
                     CompanyName = v.Company.CompanyName,
+
                     StateId = v.City.StateId,
                     CompanyId = v.CompanyId,
                     CreatedAt = v.CreatedAt
@@ -62,7 +64,9 @@ namespace EcommerceRPA.Controllers
                 var vendor = await _context.Vendors
                                            .Include(v => v.Company)
                                            .Include(v => v.City)
+
                                         
+
                                            .FirstOrDefaultAsync(v => v.VendorId == id);
 
                 if (vendor == null)
@@ -79,7 +83,7 @@ namespace EcommerceRPA.Controllers
                     Email = vendor.Email,
                     Address = vendor.Address,
                     CityId = vendor.CityId,
-                   
+
                     CompanyId = vendor.CompanyId,
                     CreatedAt = vendor.CreatedAt
                 };
@@ -111,7 +115,7 @@ namespace EcommerceRPA.Controllers
                     Email = vendorDTO.Email,
                     Address = vendorDTO.Address,
                     CityId = vendorDTO.CityId,
-                 
+
                     CompanyId = vendorDTO.CompanyId,
                     CreatedAt = DateTime.Now
                 };
@@ -162,7 +166,7 @@ namespace EcommerceRPA.Controllers
             vendor.Email = vendorDto.Email;
             vendor.Address = vendorDto.Address;
             vendor.CityId = vendorDto.CityId;
-       
+
             vendor.CompanyId = vendorDto.CompanyId;
 
             _context.Entry(vendor).State = EntityState.Modified;
@@ -187,8 +191,9 @@ namespace EcommerceRPA.Controllers
                 return StatusCode(500, "Internal server error.");
             }
 
+
             return StatusCode(200,"Success");
-        }
+
 
 
         [HttpDelete("{id}")]

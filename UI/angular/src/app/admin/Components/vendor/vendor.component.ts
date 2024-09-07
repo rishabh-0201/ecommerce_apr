@@ -29,7 +29,7 @@ export class VendorComponent implements OnInit {
     stateId: '',
     stateName: ''
   };
-  selectedCity: any = {
+                      selectedCity: any = {
     cityId: '',
     cityName: '',
     stateId: ''

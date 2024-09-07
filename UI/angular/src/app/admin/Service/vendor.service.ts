@@ -21,7 +21,7 @@ export class VendorService {
     return this.http.get<any[]>(this.url+"/api/Company")
   }
   PostVendor(vendor:Vendor):Observable<any>{
-    return this.http.post<any>(this.url+"/api/Vendor",vendor)
+    return this.http.post(this.url+"/api/Vendor",vendor,{responseType:'text'})
   }
   GetVendors():Observable<any[]>{
     return this.http.get<any[]>(this.url+"/api/Vendor");

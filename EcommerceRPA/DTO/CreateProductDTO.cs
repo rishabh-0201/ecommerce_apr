@@ -17,7 +17,9 @@ namespace EcommerceRPA.DTO
 
         public decimal UnitPrice { get; set; }
 
+
         //public decimal SellingPrice { get; set; }
+
 
 
 

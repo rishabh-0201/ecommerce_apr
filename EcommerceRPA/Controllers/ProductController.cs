@@ -4,7 +4,9 @@ using EcommerceRPA.DTO;
 using EcommerceRPA.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.Identity.Client;
+
 
 namespace EcommerceRPA.Controllers
 {
@@ -109,6 +111,7 @@ namespace EcommerceRPA.Controllers
         }
 
 
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductResponseDTO>>> GetProducts()
         {
@@ -145,6 +148,7 @@ namespace EcommerceRPA.Controllers
 
 
         
+
         [HttpPost]
         public async Task<ActionResult<CreateProductDTO>> PostProduct(CreateProductDTO productDto)
         {
@@ -152,7 +156,9 @@ namespace EcommerceRPA.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             var sellingPrice = productDto.UnitPrice+ (productDto.UnitPrice * 15) / 100;
+
             try
             {
                 // Check if the feature exists
@@ -185,7 +191,9 @@ namespace EcommerceRPA.Controllers
                     CategoryId = productDto.CategoryId,
                     FeatureId = feature.FeatureId,
                     UnitPrice = productDto.UnitPrice,
+
                     SellingPrice = sellingPrice,
+
                     ImageUrl = productDto.ImageUrl,
                     CreatedAt = DateTime.Now
                 };
@@ -193,7 +201,9 @@ namespace EcommerceRPA.Controllers
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
 
+
                 return StatusCode(200, "Success");
+
             }
             catch (DbUpdateException)
             {
@@ -204,6 +214,7 @@ namespace EcommerceRPA.Controllers
                 return StatusCode(500, "Internal server error.");
             }
         }
+
 
     //    [HttpPut("{productId}")]
     //    public async Task<CommonResponse<string>> UpdateProducts(int productId, CreateProductDTO request)
@@ -329,8 +340,6 @@ public async Task<IActionResult> DeleteProducts(int productId)
    
 }
 
-
-
         //[HttpGet]
         //public async Task<CommonResponse<List<ProductDTO>>> GetProducts()
         //{
@@ -367,7 +376,11 @@ public async Task<IActionResult> DeleteProducts(int productId)
 
 
 
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 55f65d89ae4640258abf662e1d4e805f2c12e0b9
         //[HttpDelete("{productId}")]
         //public async Task<CommonResponse<string>> DeleteProducts(int productId)
         //{
